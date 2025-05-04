@@ -1,0 +1,74 @@
+:root {
+}
+body {
+  font-family: Roboto, sans-serif;
+  box-sizing: border-box;
+}
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px ;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid silver;
+  width: 200px;
+  height: 170px;
+  padding: 20px 0;
+}
+.card p {
+  padding: 10px 0 0 0; margin: 0;
+}
+.moon-wrapper {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  background-color: #fff;
+}
+
+.moon-wrapper::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  background-color: silver;
+  width: 50%;
+  height: 100%;
+  left: var(--flip-left);
+}
+
+.disc {
+  transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: rotateY(var(--rotate));
+}
+
+.disc::before,
+.disc::after {
+  content: " ";
+  display: block;
+  transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  backface-visibility: hidden;
+  transition: transform 4s;
+}
+
+.disc::before {
+  background-color: white;
+}
+
+.disc::after {
+  background-color: silver;
+  transform: rotateY(180deg);
+}

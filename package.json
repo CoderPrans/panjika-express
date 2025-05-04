@@ -1,0 +1,19 @@
+{
+  "name": "panjika-node",
+  "version": "1.0.0",
+  "description": "Backend for Panjika",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "CoderPrans",
+  "license": "ISC",
+  "dependencies": {
+    "astronomy-engine": "^2.1.19",
+    "express": "^4.19.2",
+    "method-override": "^3.0.0",
+    "pug": "^3.0.3"
+  }
+}

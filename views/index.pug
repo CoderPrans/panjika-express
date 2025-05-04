@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    title Contact Manager
+
+    link(rel='preconnect', href='https://fonts.googleapis.com')
+    link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin)
+    link(href='https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap', rel='stylesheet')
+
+    link(rel='stylesheet', href='/styles.css')
+  body
+    header
+      h1(style="text-align: center;") Vaisakha
+
+    div.wrapper
+      each item, i in list
+        - const flip = i>13 ? 0 : 1 
+        - const rotate= 180+(i+1)*12  
+        div.card 
+          div.moon-wrapper(style=`--flip-left: ${flip * 50}%; transform: translateZ(0) rotate(-19.5deg);`)
+            div.disc(style=`--rotate: ${rotate}deg; transform: rotateY(${rotate}deg);`)
+          div.tithi
+            p(style="text-align: center") #{item[0]} &nbsp; 
+            p #{item[1]}
+
+
+
+    script(src='https://unpkg.com/htmx.org@1.9.10')
