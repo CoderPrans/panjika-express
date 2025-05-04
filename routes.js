@@ -20,7 +20,11 @@ router.get('', (req, res) => {
 
     return [tithi, date];
   });
-  res.render('index', {list});
+
+  let amavasyaTime = list.find(item => item[0].includes('Amavasya'))[1];
+  let month = calc.getMonth(amavasyaTime);
+
+  res.render('index', {list, month});
 });
 
 router.get('/this_month', (req, res) => {

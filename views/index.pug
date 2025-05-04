@@ -11,13 +11,17 @@ html
     link(rel='stylesheet', href='/styles.css')
   body
     header
-      h1(style="text-align: center;") Vaisakha
+      h1(style="text-align: center;") #{month ? month: 'Panchange for this month'}
 
     div.wrapper
       each item, i in list
         - const flip = i>13 ? 0 : 1 
         - const rotate= 180+(i+1)*12  
-        div.card 
+        - const date = new Date(item[1])
+        - const today = new Date()
+        - const isToday = date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()
+
+        div.card(style=isToday ? 'background: #f0c090;' : '')
           div.moon-wrapper(style=`--flip-left: ${flip * 50}%; transform: translateZ(0) rotate(-19.5deg);`)
             div.disc(style=`--rotate: ${rotate}deg; transform: rotateY(${rotate}deg);`)
           div.tithi
