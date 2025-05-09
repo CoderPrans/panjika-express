@@ -32,6 +32,8 @@ function getTithi(date) {
 
 const lastPurnima = (tm=new Date()) => SearchMoonPhase(180, tm, -30)?.date;
 
+const nextPurnima = (tm=new Date()) => SearchMoonPhase(180, tm, 30)?.date;
+
 function* tithiTransitions({it, time=new Date().getTime()}) {
   // let time = new Date().getTime(); 
   let interval = 5*60*1000;
@@ -66,10 +68,13 @@ function* tithiTransitions({it, time=new Date().getTime()}) {
 
 // takes amavasya time
 function getMonth(time) {
-  time = new Date(time);
+  time = new Date(new Date(time).getTime() + 1000 * 60 * 60 * 24); // add 1 day to get the month of the next tithi
   // where is moon
   let moonLong = Ecliptic(GeoVector("Moon", time, false)).elon;
   moonLong =  moonLong - ayanamsa;
+
+  // Normalize to 0–360°
+  if (moonLong < 0) moonLong += 360;
 
   let monthIndex = Math.floor(moonLong / 30);
   return months[monthIndex];
@@ -88,18 +93,29 @@ function next30(time) {
   return list;
 }
 
+function next12Purnima(time) {
+  let list = [];
+
+  // it: 14 indicates purnima
+  let tithiterator = tithiTransitions({it: 14, time: new Date(time).getTime()}); 
+
+  // get tithi transition times for next 12 it. 
+  for(let i=0; i<12; i++) {
+    list.push(tithiterator.next().value)
+  }
+
+  return list;
+}
+
 // let tithiterator = tithiTransitions({}); 
 // // get tithi transition times for next 30 tithis. 
 // for(let i=0; i<30; i++) {
-//   console.log(tithiterator.next().value);
 // }
 
 // let purnimaiterator = tithiTransitions({it: 14});
 // // get tithi purnima times for next 12 purnimas. 
 // for(let i=0; i<12; i++) {
-//   console.log(purnimaiterator.next().value);
 // } 
 
-// console.log( "last Purnima dateTime, ", lastPurnima());
 
-export default {tithiTransitions, next30, lastPurnima, getMonth};
+export default {tithiTransitions, next30, lastPurnima, nextPurnima, getMonth, next12Purnima};

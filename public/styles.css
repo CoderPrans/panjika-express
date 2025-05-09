@@ -1,34 +1,45 @@
 :root {
+  /* Optionally, you can set a base font-size here if needed */
+  /* font-size: 16px; */
+  --moon-color: rgb(227, 212, 174);
 }
+
 body {
   font-family: Roboto, sans-serif;
   box-sizing: border-box;
+  background-color: rgb(228, 172, 143);
 }
+
 .wrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px ;
-  max-width: 1200px;
+  gap: 1rem; /* 20px / 16 */
+  max-width: 75rem; /* 1200px / 16 */
   justify-content: center;
   margin: 0 auto;
 }
+
 .card {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid silver;
-  width: 185px;
-  height: 170px;
-  padding: 20px 0;
+  width: 10rem;
+  height: 9.6rem;
+  padding: 1rem 0;
+  font-size: 0.8rem;
+  border-radius: 0.425rem;
 }
+
 .card p {
-  padding: 10px 0 0 0; margin: 0;
+  padding: 0.625rem 0 0 0; /* 10px / 16 */
+  margin: 0;
 }
+
 .moon-wrapper {
-  width: 80px;
-  height: 80px;
-  border: 2px solid #ffffff;
+  width: 5rem; /* 80px / 16 */
+  height: 5rem;
+  border: 0.004rem dashed #000; /* 2px / 16 */
   border-radius: 50%;
   overflow: hidden;
   position: relative;
@@ -40,7 +51,7 @@ body {
   display: block;
   position: absolute;
   top: 0;
-  background-color: silver;
+  background-color: var(--moon-color);
   width: 50%;
   height: 100%;
   left: var(--flip-left);
@@ -72,6 +83,14 @@ body {
 }
 
 .disc::after {
-  background-color: silver;
+  background-color: var(--moon-color);
   transform: rotateY(180deg);
 }
+/**/
+/* .moon { */
+/*   width: 80px; */
+/*   height: 80px; */
+/*   border-radius: 50%; */
+/*   background: radial-gradient(circle at 50% 50%, white); */
+/*   mask-image: radial-gradient(circle at calc(50% + var(--phase-offset)), transparent 49%, black 51%); */
+/* } */

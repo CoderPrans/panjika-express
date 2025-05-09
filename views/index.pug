@@ -2,31 +2,42 @@ doctype html
 html
   head
     meta(charset='UTF-8')
-    title Contact Manager
+    title Panjika
 
+    // Viewport meta tag for responsive design
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='preconnect', href='https://fonts.googleapis.com')
     link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin)
     link(href='https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap', rel='stylesheet')
-
     link(rel='stylesheet', href='/styles.css')
+
   body
     header
       h1(style="text-align: center;") #{month ? month: 'Panchange for this month'}
 
+    div(style="width:100vw; display:flex; justify-content:space-around; margin-bottom: 30px;")
+      a(href=`/by-purnima/?purnima=${prevPurnima.toISOString()}`) <- Prev
+      a(href=`/by-purnima/?purnima=${nextPurnima.toISOString()}`) Next ->
+
     div.wrapper
       each item, i in list
-        - const flip = i>13 ? 0 : 1 
-        - const rotate= 180+(i+1)*12  
-        - const date = new Date(item[1])
-        - const today = new Date()
-        - const isToday = date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()
+        - const flip = i > 13 ? 0 : 1
+        - const rotate = 180 + (i + 1) * 12
 
-        div.card(style=isToday ? 'background: #f0c090;' : '')
+        - const current = new Date(item[1])
+        - const next = i < list.length - 1 ? new Date(list[i + 1][1]) : null
+        - const now = new Date()
+        - const isCurrent = now >= current && (!next || now < next) && now.getMonth() === current.getMonth()
+
+        div.card(style=isCurrent ? 'background: #f0c090;' : '')
           div.moon-wrapper(style=`--flip-left: ${flip * 50}%; transform: translateZ(0) rotate(-19.5deg);`)
             div.disc(style=`--rotate: ${rotate}deg; transform: rotateY(${rotate}deg);`)
           div.tithi
             p(style="text-align: center") #{item[0]} &nbsp; 
             p #{item[1]}
+
+        // - const phaseOffset = Math.sin((i / 29) * Math.PI * 2) * 40; // varies from -40 to 40px
+        // div.moon(style=`--phase-offset: ${phaseOffset}%;`)
 
 
 
